@@ -36,13 +36,13 @@
   <button id="btnLogOut" onclick="logOut()">Log Out</button>
   <button id="btnClose" onclick="closed()">Close</button>
 
-  <!-- <script src="js/vconsole.min.js"></script> -->
-  <!-- <script>
+  <script src="js/vconsole.min.js"></script>
+  <script>
     var vConsole = new VConsole()
     console.log("Hello World!")
-  </script> -->
+  </script>
 
-  <!-- <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
     function createUniversalLink() {
     }
@@ -72,16 +72,32 @@
     }
 
     async function getUserProfile() {
+      const profile = await liff.getProfile()
+      document.getElementById("pictureUrl").src = profile.pictureUrl
+      document.getElementById("userId").src = profile.userId
+      document.getElementById("statusMessage").src = profile.statusMessage
+      document.getElementById("displayName").src = profile.displayName
     }
 
     function getEnvironment() {
+      document.getElementById("os").append(liff.getOS())
+      document.getElementById("language").append(liff.getLanguage())
+      document.getElementById("version").append(liff.getVersion())
+      document.getElementById("accessToken").append(liff.getAccessToken())
+      document.getElementById("isInClient").append(liff.isInClient())
+      if (liff.isInClient()) { //ถ้าเปิดในแอป LINE ให้ซ่อนปุ่ม Logout
+        document.getElementById("btnLogOut").style.display = "none"
+      } else { //ถ้าเปิดนอกแอป LINE ให้ซ่อนปุ่ม SendMsg, QRScan, CloseLiff
+        document.getElementById("btnMsg").style.display = "none"
+        document.getElementById("btnScanCode").style.display = "none"
+        document.getElementById("btnClose").style.display = "none"
+      }
     }
 
     async function main() {
-      alert("LINE Developers x Skooldio")
-      await liff.init({ liffId: "YOUR-LIFF-ID" })
-      // getEnvironment()
-      // getUserProfile()
+      await liff.init({ liffId: "1661441736-PWBNKMO9" })
+      getEnvironment()
+      getUserProfile()
       // getContext()
       // getFriendship()
       // createUniversalLink()
