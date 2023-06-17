@@ -63,6 +63,10 @@
     }
 
     async function getFriendship() {
+      
+    }
+
+    async function sendMsg() {
       if (liff.getContext().type !== "none") {
         await liff.sendMessages([
             {
@@ -74,9 +78,6 @@
         )
         alert("Message sent")
       }
-    }
-
-    async function sendMsg() {
     }
 
     function getContext() {
